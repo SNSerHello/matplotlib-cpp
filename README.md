@@ -17,8 +17,19 @@ msbuild /maxcpucount:4 /p:Configuration=Release /p:PreferredToolArchitecture=x64
 msbuild /maxcpucount:4 /p:Configuration=Release /p:PreferredToolArchitecture=x64 INSTALL.vcxproj
 ```
 
+### Ubuntu
+
+```bash
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=../dist
+make -j4
+make install
+```
+
 Usage
 -----
+
 Complete minimal example:
 ```cpp
 #include "matplotlibcpp.h"
