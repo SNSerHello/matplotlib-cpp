@@ -17,7 +17,19 @@ int main() {
     plt::show();
 }
 ```
-    g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7
+**一般方式编译**
+
+```bash
+g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7
+```
+
+**Anaconda方式编译**
+
+```bash
+g++ minimal.cpp -std=c++11 -I${CONDA_PREFIX}/include/python3.7m -I${CONDA_PREFIX}/lib/python3.7/site-packages/numpy/core/include -L${CONDA_PREFIX}/lib -lpython3.7m -o minimal
+```
+
+如果是`python3.8`，那么相关地方修改成`3.8`即可。在运行的时候，必须把`libpython3.7m.so`的目录放在`LD_LIBRARY_PATH`中，否则`mininal`程序无法运行。
 
 **Result:**
 
@@ -240,7 +252,7 @@ You can download and install matplotlib-cpp using the [vcpkg](https://github.com
     ./bootstrap-vcpkg.sh
     ./vcpkg integrate install
     vcpkg install matplotlib-cpp
-  
+
 The matplotlib-cpp port in vcpkg is kept up to date by Microsoft team members and community contributors. If the version is out of date, please [create an issue or pull request](https://github.com/Microsoft/vcpkg) on the vcpkg repository.
 
 
