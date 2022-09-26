@@ -59,9 +59,7 @@ g++ minimal.cpp \
   -o minimal
 ```
 
-如果是`python3.8`，那么相关地方修改成`3.8`即可。在运行的时候，必须把`libpython3.7m.so`的目录放在`LD_LIBRARY_PATH`中，否则`mininal`程序无法运行。
-
-### Anaconda环境下运行
+**Anaconda环境下运行**
 
 ```bash
 export PYTHONHOME=$CONDA_PREFIX/lib/python3.7
