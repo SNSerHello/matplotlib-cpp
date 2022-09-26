@@ -63,7 +63,7 @@ g++ minimal.cpp \
 
 ```bash
 export PYTHONHOME=$CONDA_PREFIX/lib/python3.7
-export PYTHONPATH=$PYTHONHOME:$CONDA_PREFIX/lib/python3.7/site-packages:$CONDA_PREFIX/lib/python3.7/lib-dynload
+export PYTHONPATH=$PYTHONHOME:$PYTHONHOME/site-packages:$PYTHONHOME/lib-dynload
 ./minimal
 ```
 
