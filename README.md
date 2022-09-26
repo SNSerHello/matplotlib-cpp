@@ -4,7 +4,18 @@ matplotlib-cpp
 Welcome to matplotlib-cpp, possibly the simplest C++ plotting library.
 It is built to resemble the plotting API used by Matlab and matplotlib.
 
+## 编译matplotlib-cpp
 
+### Windows
+
+```bash
+mkdir build
+cd build
+cmake .. -G "Visual Studio 15 2017 Win64" -DCMAKE_INSTALL_PREFIX=..\dist
+%comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+msbuild /maxcpucount:4 /p:Configuration=Release /p:PreferredToolArchitecture=x64 ALL_BUILD.vcxproj
+msbuild /maxcpucount:4 /p:Configuration=Release /p:PreferredToolArchitecture=x64 INSTALL.vcxproj
+```
 
 Usage
 -----
@@ -17,25 +28,7 @@ int main() {
     plt::show();
 }
 ```
-**一般方式编译**
-
-```bash
-g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7 -o minimal
-```
-
-**Anaconda方式编译**
-
-```bash
-g++ minimal.cpp \
-  -std=c++11 \
-  -I${CONDA_PREFIX}/include/python3.7m \
-  -I${CONDA_PREFIX}/lib/python3.7/site-packages/numpy/core/include \
-  -L${CONDA_PREFIX}/lib 
-  -lpython3.7m \
-  -o minimal
-```
-
-如果是`python3.8`，那么相关地方修改成`3.8`即可。在运行的时候，必须把`libpython3.7m.so`的目录放在`LD_LIBRARY_PATH`中，否则`mininal`程序无法运行。
+    g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7
 
 **Result:**
 
