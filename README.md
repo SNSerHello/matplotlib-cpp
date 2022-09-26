@@ -26,7 +26,13 @@ g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7 -o minimal
 **Anaconda方式编译**
 
 ```bash
-g++ minimal.cpp -std=c++11 -I${CONDA_PREFIX}/include/python3.7m -I${CONDA_PREFIX}/lib/python3.7/site-packages/numpy/core/include -L${CONDA_PREFIX}/lib -lpython3.7m -o minimal
+g++ minimal.cpp \
+  -std=c++11 \
+  -I${CONDA_PREFIX}/include/python3.7m \
+  -I${CONDA_PREFIX}/lib/python3.7/site-packages/numpy/core/include \
+  -L${CONDA_PREFIX}/lib 
+  -lpython3.7m \
+  -o minimal
 ```
 
 如果是`python3.8`，那么相关地方修改成`3.8`即可。在运行的时候，必须把`libpython3.7m.so`的目录放在`LD_LIBRARY_PATH`中，否则`mininal`程序无法运行。
