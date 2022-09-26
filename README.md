@@ -20,7 +20,7 @@ int main() {
 **一般方式编译**
 
 ```bash
-g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7
+g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7 -o minimal
 ```
 
 **Anaconda方式编译**
