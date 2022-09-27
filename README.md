@@ -32,13 +32,54 @@ Usage
 
 Complete minimal example:
 ```cpp
+#include <string>
+#include <vector>
+#include <memory>
+#include <sstream>
+
+#define PY_MAJOR_VERSION 3
 #include "matplotlibcpp.h"
 #define plt matplotlibcpp
 
+std::string to_strip(const std::string &str,
+                     const std::string &whitespace = " \n\r\t\f\v") {
+  size_t from = str.find_first_not_of(whitespace);
+
+  if (from == std::string::npos) {
+    return "";
+  }
+  size_t to = str.find_last_not_of(whitespace);
+  assert(to != std::string::npos);
+
+  return str.substr(from, (to - from) + 1);
+}
+
+std::string COMMAND(const std::string &cmd) {
+  using pipe_ptr = std::unique_ptr<FILE, decltype(pclose) *>;
+  pipe_ptr pipe(popen(cmd.c_str(), "r"), pclose);
+  if (pipe == nullptr) {
+    std::cout << "error: failed to execute: " << cmd << std::endl;
+    return "";
+  }
+
+  const int BUF_SIZE = 1023;
+  char buf[BUF_SIZE + 1];
+  buf[BUF_SIZE] = '\0';
+  std::stringstream out;
+  while (fgets(buf, BUF_SIZE, pipe.get()) != NULL) {
+    out << buf;
+  }
+  pclose(pipe.release());
+  
+  return out.str();
+}
+
 int main() {
   // 增加环境变量设置可以免除在运行的时候手动的增加
+  const std::string PYTHON_VERSION =
+    to_strip(COMMAND("python3 --version | cut -d ' ' -f2 | cut -d '.' -f-2"));
   const std::string PYTHONHOME =
-      std::string(getenv("CONDA_PREFIX")) + "/lib/python3.7m";
+      std::string(getenv("CONDA_PREFIX")) + "/lib/python" + PYTHON_VERSION;
   const std::string PYTHONPATH = PYTHONHOME + ":" + PYTHONHOME +
                                  "/site-packages:" + PYTHONHOME +
                                  "/lib-dynload";
@@ -64,7 +105,7 @@ g++ minimal.cpp -std=c++11 -I/usr/include/python3.7 -lpython3.7 -o minimal
 ```bash
 g++ minimal.cpp \
   -std=c++11 \
-  -I${CONDA_PREFIX}/include/python3.7m \
+  -I${CONDA_PREFIX}/include/python3.7 \
   -I${CONDA_PREFIX}/lib/python3.7/site-packages/numpy/core/include \
   -L${CONDA_PREFIX}/lib 
   -lpython3.7m \
