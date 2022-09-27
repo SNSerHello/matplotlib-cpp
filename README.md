@@ -33,10 +33,22 @@ Usage
 Complete minimal example:
 ```cpp
 #include "matplotlibcpp.h"
-namespace plt = matplotlibcpp;
+#define plt matplotlibcpp
+
 int main() {
-    plt::plot({1,3,2,4});
-    plt::show();
+  // 增加环境变量设置可以免除在运行的时候手动的增加
+  const std::string PYTHONHOME =
+      std::string(getenv("CONDA_PREFIX")) + "/lib/python3.7m";
+  const std::string PYTHONPATH = PYTHONHOME + ":" + PYTHONHOME +
+                                 "/site-packages:" + PYTHONHOME +
+                                 "/lib-dynload";
+  setenv("PYTHONHOME", PYTHONHOME.c_str(), 1);
+  setenv("PYTHONPATH", PYTHONPATH.c_str(), 1);
+
+  plt::plot({1,3,2,4});
+  plt::show();
+  
+  return 0;
 }
 ```
 **source**: [minimal.cpp](https://github.com/SNSerHello/matplotlib-cpp/blob/master/examples/minimal.cpp)
