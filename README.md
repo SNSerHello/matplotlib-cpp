@@ -219,7 +219,7 @@ int main()
     plt::show();
 }
 ```
-    g++ quiver.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7
+    g++ quiver.cpp -std=c++11 -I/usr/include/python3.7 -lpython3.7
 
 **Result:**
 
