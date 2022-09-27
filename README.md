@@ -56,7 +56,7 @@ int main() {
 **一般方式编译**
 
 ```bash
-g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7 -o minimal
+g++ minimal.cpp -std=c++11 -I/usr/include/python3.7 -lpython3.7 -o minimal
 ```
 
 **Anaconda方式编译**
@@ -78,8 +78,6 @@ export PYTHONHOME=$CONDA_PREFIX/lib/python3.7
 export PYTHONPATH=$PYTHONHOME:$PYTHONHOME/site-packages:$PYTHONHOME/lib-dynload
 ./minimal
 ```
-
-    g++ minimal.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7
 
 **Result:**
 
@@ -121,7 +119,9 @@ int main()
     plt::save("./basic.png");
 }
 ```
-    g++ basic.cpp -I/usr/include/python2.7 -lpython2.7
+```bash
+g++ basic.cpp -I/usr/include/python3.7 -lpython3.7
+```
 
 **Result:**
 
@@ -156,7 +156,9 @@ int main()
     plt::show();
 }
 ```
-    g++ modern.cpp -std=c++11 -I/usr/include/python2.7 -lpython
+```bash
+g++ modern.cpp -std=c++11 -I/usr/include/python3.7 -lpython3.7
+```
 
 **Result:**
 
@@ -186,7 +188,9 @@ int main() {
 }
 
 ```
-    g++ xkcd.cpp -std=c++11 -I/usr/include/python2.7 -lpython2.7
+```bash
+g++ xkcd.cpp -std=c++11 -I/usr/include/python3.7 -lpython3.7
+```
 
 **Result:**
 
@@ -258,7 +262,9 @@ matplotlib-cpp works by wrapping the popular python plotting library matplotlib.
 This means you have to have a working python installation, including development headers.
 On Ubuntu:
 
-    sudo apt-get install python-matplotlib python-numpy python2.7-dev
+```bash
+sudo apt-get install python-matplotlib python-numpy python3.7-dev
+```
 
 If, for some reason, you're unable to get a working installation of numpy on your system,
 you can define the macro `WITHOUT_NUMPY` before including the header file to erase this
@@ -287,21 +293,27 @@ interpreter internally can be used.
 To compile the code without using cmake, the compiler invocation should look like
 this:
 
-    g++ example.cpp -I/usr/include/python2.7 -lpython2.7
+```bash
+g++ example.cpp -I/usr/include/python3.7 -lpython3.7
+```
 
 This can also be used for linking against a custom build of python
 
-    g++ example.cpp -I/usr/local/include/fancy-python4 -L/usr/local/lib -lfancy-python4
+```bash
+g++ example.cpp -I/usr/local/include/fancy-python4 -L/usr/local/lib -lfancy-python4
+```
 
 # Vcpkg
 
 You can download and install matplotlib-cpp using the [vcpkg](https://github.com/Microsoft/vcpkg) dependency manager:
 
-    git clone https://github.com/Microsoft/vcpkg.git
-    cd vcpkg
-    ./bootstrap-vcpkg.sh
-    ./vcpkg integrate install
-    vcpkg install matplotlib-cpp
+```bash
+git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.sh
+./vcpkg integrate install
+vcpkg install matplotlib-cpp
+```
 
 The matplotlib-cpp port in vcpkg is kept up to date by Microsoft team members and community contributors. If the version is out of date, please [create an issue or pull request](https://github.com/Microsoft/vcpkg) on the vcpkg repository.
 
