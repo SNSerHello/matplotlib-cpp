@@ -57,19 +57,23 @@ std::string __XXX_YYY_ZZZ_COMMAND__(const std::string &cmd) {
 }
 
 static bool __XXX_YYY_ZZZ_INIT__() {
-  const std::string PYTHON_VERSION = __XXX_YYY_ZZZ_COMMAND__(
-      "python3 --version | cut -d ' ' -f2 | cut -d '.' -f-2");
-  const std::string PYTHONHOME =
-      std::string(getenv("CONDA_PREFIX")) + "/lib/python" + PYTHON_VERSION;
-  const std::string PYTHONPATH = PYTHONHOME + ":" + PYTHONHOME +
-                                 "/site-packages:" + PYTHONHOME +
-                                 "/lib-dynload";
-  setenv("PYTHONHOME", PYTHONHOME.c_str(), 1);
-  setenv("PYTHONPATH", PYTHONPATH.c_str(), 1);
-
-  std::cout << "PYTHON_VERSION: " << PYTHON_VERSION << std::endl;
-  std::cout << "PYTHONHOME    : " << getenv("PYTHONHOME") << std::endl;
-  std::cout << "PYTHONPATH    : " << getenv("PYTHONPATH") << std::endl;
+  const std::string CONDA_PREFIX = getenv("CONDA_PREFIX");
+  if (CONDA_PREFIX.empty()) {
+    // do default python config
+  } else {
+    const std::string PYTHON_VERSION = __XXX_YYY_ZZZ_COMMAND__(
+        "python3 --version | cut -d ' ' -f2 | cut -d '.' -f-2");
+    const std::string PYTHONHOME =
+        std::string(getenv("CONDA_PREFIX")) + "/lib/python" + PYTHON_VERSION;
+    const std::string PYTHONPATH = PYTHONHOME + ":" + PYTHONHOME +
+                                   "/site-packages:" + PYTHONHOME +
+                                   "/lib-dynload";
+    setenv("PYTHONHOME", PYTHONHOME.c_str(), 1);
+    setenv("PYTHONPATH", PYTHONPATH.c_str(), 1);
+    std::cout << "PYTHON_VERSION: " << PYTHON_VERSION << std::endl;
+    std::cout << "PYTHONHOME    : " << getenv("PYTHONHOME") << std::endl;
+    std::cout << "PYTHONPATH    : " << getenv("PYTHONPATH") << std::endl;
+  }
 
   return true;
 }
