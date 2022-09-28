@@ -57,9 +57,7 @@ std::string __XXX_YYY_ZZZ_COMMAND__(const std::string &cmd) {
 }
 
 static bool __XXX_YYY_ZZZ_INIT__() {
-  const char *conda_prefix = getenv("CONDA_PREFIX");
-  const std::string CONDA_PREFIX = conda_prefix == NULL ? "" : conda_prefix;
-  if (CONDA_PREFIX.empty()) {
+  if (getenv("CONDA_PREFIX") == NULL) {
     // do default python config
   } else {
     const std::string PYTHON_VERSION = __XXX_YYY_ZZZ_COMMAND__(
