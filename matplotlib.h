@@ -66,7 +66,8 @@ static bool __XXX_YYY_ZZZ_INIT__() {
 #ifdef _WIN32
     const std::string PYTHONHOME = CONDA_PREFIX + R"(\lib)";
     const std::string PYTHONPATH = PYTHONHOME + ";" + PYTHONHOME +
-                                   R"(\site-packages)";
+                                   R"(\site-packages;)" + CONDA_PREFIX +
+                                   R"(\DLLs)";
     _putenv_s("PYTHONHOME", PYTHONHOME.c_str());
     _putenv_s("PYTHONPATH", PYTHONPATH.c_str());
 #else
