@@ -105,7 +105,8 @@ endif()
 
 # Install headers
 install(FILES
-  "${PROJECT_SOURCE_DIR}/matplotlibcpp.h"
+  ${PROJECT_SOURCE_DIR}/matplotlibcpp.h 
+  ${PROJECT_SOURCE_DIR}/matplotlib.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 
