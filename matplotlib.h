@@ -61,8 +61,6 @@ static bool __XXX_YYY_ZZZ_INIT__() {
   if (CONDA_PREFIX.empty()) {
     // do default python config
   } else {
-    const std::string PYTHON_VERSION = __XXX_YYY_ZZZ_COMMAND__(
-        "python3 --version | cut -d ' ' -f2 | cut -d '.' -f-2");
 #ifdef _WIN32
     const std::string PYTHONHOME = CONDA_PREFIX + R"(\lib)";
     const std::string PYTHONPATH = PYTHONHOME + ";" + PYTHONHOME +
@@ -74,7 +72,15 @@ static bool __XXX_YYY_ZZZ_INIT__() {
     _putenv_s("PYTHONPATH", PYTHONPATH.c_str());
     _putenv_s("QT_QPA_PLATFORM_PLUGIN_PATH",
               QT_QPA_PLATFORM_PLUGIN_PATH.c_str());
+    std::cout << "PYTHONHOME                 : " << myenv("PYTHONHOME")
+              << std::endl;
+    std::cout << "PYTHONPATH                 : " << myenv("PYTHONPATH")
+              << std::endl;
+    std::cout << "QT_QPA_PLATFORM_PLUGIN_PATH: "
+              << myenv("QT_QPA_PLATFORM_PLUGIN_PATH") << std::endl;
 #else
+    const std::string PYTHON_VERSION = __XXX_YYY_ZZZ_COMMAND__(
+        "python3 --version | cut -d ' ' -f2 | cut -d '.' -f-2");
     const std::string PYTHONHOME =
         CONDA_PREFIX + "/lib/python" + PYTHON_VERSION;
     const std::string PYTHONPATH = PYTHONHOME + ":" + PYTHONHOME +
@@ -82,10 +88,10 @@ static bool __XXX_YYY_ZZZ_INIT__() {
                                    "/lib-dynload";
     setenv("PYTHONHOME", PYTHONHOME.c_str(), 1);
     setenv("PYTHONPATH", PYTHONPATH.c_str(), 1);
-#endif
     std::cout << "PYTHON_VERSION: " << PYTHON_VERSION << std::endl;
     std::cout << "PYTHONHOME    : " << myenv("PYTHONHOME") << std::endl;
     std::cout << "PYTHONPATH    : " << myenv("PYTHONPATH") << std::endl;
+#endif
   }
 
   return true;
