@@ -68,8 +68,12 @@ static bool __XXX_YYY_ZZZ_INIT__() {
     const std::string PYTHONPATH = PYTHONHOME + ";" + PYTHONHOME +
                                    R"(\site-packages;)" + CONDA_PREFIX +
                                    R"(\DLLs)";
+    const std::string QT_QPA_PLATFORM_PLUGIN_PATH =
+        CONDA_PREFIX + R"(\Library\plugins\platforms)";
     _putenv_s("PYTHONHOME", PYTHONHOME.c_str());
     _putenv_s("PYTHONPATH", PYTHONPATH.c_str());
+    _putenv_s("QT_QPA_PLATFORM_PLUGIN_PATH",
+              QT_QPA_PLATFORM_PLUGIN_PATH.c_str());
 #else
     const std::string PYTHONHOME =
         CONDA_PREFIX + "/lib/python" + PYTHON_VERSION;

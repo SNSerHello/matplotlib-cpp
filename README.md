@@ -9,6 +9,7 @@ It is built to resemble the plotting API used by Matlab and matplotlib.
 ### Windows
 
 ```bash
+conda install qt
 mkdir build
 cd build
 cmake .. -G "Visual Studio 15 2017 Win64" -DCMAKE_INSTALL_PREFIX=..\dist
