@@ -38,10 +38,6 @@ Complete minimal example:
 #include <memory>
 #include <sstream>
 
-#define PY_MAJOR_VERSION 3
-#include "matplotlibcpp.h"
-#define plt matplotlibcpp
-
 std::string to_strip(const std::string &str,
                      const std::string &whitespace = " \n\r\t\f\v") {
   size_t from = str.find_first_not_of(whitespace);
@@ -92,6 +88,11 @@ int main() {
   
   return 0;
 }
+
+#define PY_MAJOR_VERSION 3
+#include "matplotlibcpp.h"
+#define plt matplotlibcpp
+
 ```
 **source**: [minimal.cpp](https://github.com/SNSerHello/matplotlib-cpp/blob/master/examples/minimal.cpp)
 
