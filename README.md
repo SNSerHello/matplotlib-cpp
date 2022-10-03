@@ -33,66 +33,14 @@ Usage
 
 Complete minimal example:
 ```cpp
-#include <string>
-#include <vector>
-#include <memory>
-#include <sstream>
-
-std::string to_strip(const std::string &str,
-                     const std::string &whitespace = " \n\r\t\f\v") {
-  size_t from = str.find_first_not_of(whitespace);
-
-  if (from == std::string::npos) {
-    return "";
-  }
-  size_t to = str.find_last_not_of(whitespace);
-  assert(to != std::string::npos);
-
-  return str.substr(from, (to - from) + 1);
-}
-
-std::string COMMAND(const std::string &cmd) {
-  using pipe_ptr = std::unique_ptr<FILE, decltype(pclose) *>;
-  pipe_ptr pipe(popen(cmd.c_str(), "r"), pclose);
-  if (pipe == nullptr) {
-    std::cout << "error: failed to execute: " << cmd << std::endl;
-    return "";
-  }
-
-  const int BUF_SIZE = 1023;
-  char buf[BUF_SIZE + 1];
-  buf[BUF_SIZE] = '\0';
-  std::stringstream out;
-  while (fgets(buf, BUF_SIZE, pipe.get()) != NULL) {
-    out << buf;
-  }
-  pclose(pipe.release());
-  
-  return out.str();
-}
+#include <matplotlib.h>
 
 int main() {
-  // 增加环境变量设置可以免除在运行的时候手动的增加
-  const std::string PYTHON_VERSION =
-    to_strip(COMMAND("python3 --version | cut -d ' ' -f2 | cut -d '.' -f-2"));
-  const std::string PYTHONHOME =
-      std::string(getenv("CONDA_PREFIX")) + "/lib/python" + PYTHON_VERSION;
-  const std::string PYTHONPATH = PYTHONHOME + ":" + PYTHONHOME +
-                                 "/site-packages:" + PYTHONHOME +
-                                 "/lib-dynload";
-  setenv("PYTHONHOME", PYTHONHOME.c_str(), 1);
-  setenv("PYTHONPATH", PYTHONPATH.c_str(), 1);
-
   plt::plot({1,3,2,4});
   plt::show();
   
   return 0;
 }
-
-#define PY_MAJOR_VERSION 3
-#include "matplotlibcpp.h"
-#define plt matplotlibcpp
-
 ```
 **source**: [minimal.cpp](https://github.com/SNSerHello/matplotlib-cpp/blob/master/examples/minimal.cpp)
 
@@ -117,8 +65,6 @@ g++ minimal.cpp \
 **Anaconda环境下运行**
 
 ```bash
-export PYTHONHOME=$CONDA_PREFIX/lib/python3.7
-export PYTHONPATH=$PYTHONHOME:$PYTHONHOME/site-packages:$PYTHONHOME/lib-dynload
 ./minimal
 ```
 
@@ -128,10 +74,8 @@ export PYTHONPATH=$PYTHONHOME:$PYTHONHOME/site-packages:$PYTHONHOME/lib-dynload
 
 A more comprehensive example:
 ```cpp
-#include "matplotlibcpp.h"
+#include "matplotlib.h"
 #include <cmath>
-
-namespace plt = matplotlibcpp;
 
 int main()
 {
@@ -173,10 +117,9 @@ g++ basic.cpp -I/usr/include/python3.7 -lpython3.7
 Alternatively, matplotlib-cpp also supports some C++11-powered syntactic sugar:
 ```cpp
 #include <cmath>
-#include "matplotlibcpp.h"
+#include "matplotlib.h"
 
 using namespace std;
-namespace plt = matplotlibcpp;
 
 int main()
 {
@@ -209,11 +152,9 @@ g++ modern.cpp -std=c++11 -I/usr/include/python3.7 -lpython3.7
 
 Or some *funny-looking xkcd-styled* example:
 ```cpp
-#include "matplotlibcpp.h"
+#include "matplotlib.h"
 #include <vector>
 #include <cmath>
-
-namespace plt = matplotlibcpp;
 
 int main() {
     std::vector<double> t(1000);
@@ -241,9 +182,7 @@ g++ xkcd.cpp -std=c++11 -I/usr/include/python3.7 -lpython3.7
 
 When working with vector fields, you might be interested in quiver plots:
 ```cpp
-#include "../matplotlibcpp.h"
-
-namespace plt = matplotlibcpp;
+#include "../matplotlib.h"
 
 int main()
 {
@@ -270,9 +209,7 @@ int main()
 
 When working with 3d functions, you might be interested in 3d plots:
 ```cpp
-#include "../matplotlibcpp.h"
-
-namespace plt = matplotlibcpp;
+#include "../matplotlib.h"
 
 int main()
 {
