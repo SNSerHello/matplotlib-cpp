@@ -39,6 +39,5 @@ int main() {
   // save figure
   const char *filename = "./basic.png";
   std::cout << "Saving result to " << filename << std::endl;
-  ;
   plt::save(filename);
 }
